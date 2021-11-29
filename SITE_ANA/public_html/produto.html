@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+    </head>
+    <body>
+        <form id="produto" method="post" onsubmit="return cadastrar()">
+            Produto:                <input type="text"   name="nome"><br>
+            temperatua mínima:      <input type="number" name="tmp_min"><br>
+            temperatua máxima:      <input type="number" name="tmp_max"><br>
+            luminosidade mínima:    <input type="number" name="lum_min"><br>
+            luminosidade máxima:    <input type="number" name="lum_max"><br>
+            <button>Cadastrar Produto</button>
+        </form>
+        <script>
+            function cadastrar() {
+                var elements = new URLSearchParams(new FormData(document.getElementById("produto")));
+                
+                var produto = elements.get("nome");
+                var temp_min = elements.get("tmp_min");
+                var temp_max = elements.get("tmp_max");
+                var lumi_min = elements.get("lum_min");
+                var lumi_max = elements.get("lum_max");
+                
+                if(!produto) alert("Digite o nome do produto");
+                else if(!temp_min) alert("Digite a temperatura mínima");
+                else if(!temp_max) alert("Digite a temperatura máxima");
+                else if(!lumi_min) alert("Digite o a luminosidade mínima");
+                else if(!lumi_max) alert("Digite o a luminosidade máxima");
+                else {
+                    fetch("/produto/cadastrar", {
+                        method: "POST",
+                        body: elements
+                    }).then(function (resposta) {
+                        
+                        console.log("resposta: ", resposta);
+                        if (resposta.ok) {
+                            window.alert("Produto cadastrado com sucesso!");
+                            limparFormulario();
+                        } else {
+                            throw("Houve um erro ao tentar realizar o cadastro do produto!");
+                        }
+                    }).catch(function (resposta) {
+                        console.log(`#ERRO: ${resposta}`);
+                    });
+                }
+                return false;
+            }
+            
+            function limparFormulario() {
+                document.getElementById("estufa").reset();
+            }
+        </script>
+    </body>
+</html>

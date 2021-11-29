@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+
+    <script src="./js/funcoes.js"></script>
+    <link rel="stylesheet" href="./css/dashboard.css">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+    <script src="https://www.chartjs.org/dist/2.7.1/Chart.js"></script>
+    <script src="https://www.chartjs.org/samples/latest/utils.js"></script>
+
+</head>
+<style>
+    canvas {
+        -moz-user-select: none;
+        -webkit-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+    }
+    #li_cadastros_icon , #li_dashboard_icon {
+        float: right;
+        margin-right: 16px;
+    }
+</style>
+
+<body onload="validarSessao('../login')">
+    <div class="layout">
+
+        <div class="painel_lateral">
+            <div class="painel_logo"><img src="./img_dashboard/logo.png"></div>
+            <div class="painel_ul">
+                <ul>
+                    <li onclick="show_cadastro()">Cadastros <span id="li_cadastros_icon">&#9654;</span>
+                        <ul id="cads" class="ul_cadastros" style="display: none;">
+                            <li onclick="location.href = '../cadastro_usuario'">Novo Usuário</li>
+                            <li onclick="location.href = '../produto'">Novo Produto</li>
+                            <li onclick="location.href = '../nova_estufa'">Nova Estufa</li>
+                        </ul>
+                    </li>
+                    <li onclick="window.location.href='./'">Dashboard</li>
+                    <li onclick="show_dashboard()">Estufas <span id="li_dashboard_icon">&#9654;</span>
+                        <ul id="estufasContainer" class="ul_dashboard" style="display: none;">
+                        </ul>
+                    </li>
+                    <li>Calendário</li>
+                    <li>Chat</li>
+                    <li><a href="../suporte">Suporte</a></li>
+                    <li onclick="sair()">Sair</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="painel_principal">
+
+            <div class="header_dashboard">
+                <div class="dash1">
+                    <img src="./img_dashboard/dash_home.png">
+                    <input type="text" id="dashboard_search" placeholder="Pesquisar por...">
+                </div>
+                <div class="dash2">
+                    <img src="./img_dashboard/dash_chat.png">
+                    <img id="alertar" src="./img_dashboard/dash_notification.png">
+                    <img src="./img_dashboard/dash_user.png">
+                </div>
+            </div>
+            
+            <div class="alertas">
+ 
+                <div id="alerta_geral" class="alerta_positivo">
+                    <h1 id="titulo_alerta">Parabéns <span id="nomeCliente">Cliente</span>,</h1>
+                    <p id="msg_alerta">Sua estufa está operando dentro das condições de normalidade. Acesse o histórico para obter mais informações.</p>
+                </div>
+
+                <div class="historico">
+                    <p>HISTÓRICO</p>
+                </div>
+
+                <div id="ctg_alertas" class="contagem_alertas">
+                    <p>ALERTAS: 0</p>
+                </div>
+
+            </div>
+
+            <div class="graficos">
+
+                <div class="grafico1">
+                    <div>
+                        <h1>Sensor LM35 - Temperatura</h1>
+                            <section>
+                                <h2>Média: <label id='average'>0.00</label></h2>
+                            </section>
+                            <section style="width:100%">
+                                <canvas id="chart"></canvas>
+                        <section>
+                            <img class="parametro" src="./img_dashboard/parametro_temperatura.png">
+                    </div>
+                </div>
+
+                <div class="grafico2">
+                    <div>
+                        <h1>Sensor LDR - Luminosidade</h1>
+                            <section>
+                                <h2>Média: <label id='average2'>0.00</label></h2>
+                            </section>
+                            <section style="width:100%">
+                                <canvas id="chart2"></canvas>
+                        <section>
+                            <img class="parametro" src="./img_dashboard/parametro_luminosidade.png">
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <script src="./js/estufa-view.js"></script>
+</body>
+</html>

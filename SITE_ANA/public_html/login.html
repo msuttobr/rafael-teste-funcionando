@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+
+    <link rel="stylesheet" href="./css/cadastro_login.css">
+    <script src="./js/login.js"></script>
+</head>
+
+<body onload="validarSessao()">
+    <div class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <a href="./index">
+                        <img src="img/logo.png" width="100%">
+                    </a>
+                </div>
+                <div class="navigation">
+                    <ul>
+                        <li><a href="./index#quem-somos">Quem somos</a></li>
+                        <li><a href="./index#proposito">Propósito</a></li>
+                        <li><a href="./simulador-financeiro">Simulador Financeiro</a></li>
+                        <li><a href="">Login</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="conteudo">
+        <div class="login">
+            <form id="form_login" method="post" onsubmit="return entrar()">
+                <h1>Login</h1>
+                <div>
+                    E-mail ou Cnpj<br>
+                    <input id="ipt_login_login" name="login" type="text" placeholder="digite o e-mail ou cnpj">
+                </div>
+                <div>
+                    Digite sua senha <br>
+                    <input id="ipt_senha_login" name="senha" type="password" placeholder="senha">
+                </div>
+
+                <button class="button">ACESSAR</button>
+            </form>
+        </div>
+    </div>
+</body>
+
+</html>
+<script>
+
+    function entrar() {
+        var formulario = new URLSearchParams(new FormData(document.getElementById("form_login")));
+
+        var login = formulario.get("login");
+        var senha = formulario.get("senha");
+
+        console.log("FORM LOGIN: ", login);
+        console.log("FORM SENHA: ", senha);
+
+        var autenticar = "/usuarios/autenticar";
+        var isEmpresa = false;
+
+        if(isNaN(Number(login))) {
+            if(login.indexOf("@") == -1 || login.indexOf(".com") == -1) {
+                alert("email invalido");
+                return false;
+            }
+        }
+        else if(login.length == 14) {
+            autenticar = "/usuarios/autenticar-empresa";
+            isEmpresa = true;
+        }
+        fetch(autenticar, {
+            method: "POST",
+            body: formulario
+        }).then(function (resposta) {
+            console.log("ESTOU NO THEN DO entrar()!")
+
+            if (resposta.ok) {
+                console.log(resposta);
+
+                resposta.json().then(json => {
+                    console.log(json);
+                    console.log(JSON.stringify(json));
+
+                    if(isEmpresa) {
+                        sessionStorage.TIPO_USUARIO = "empresa";
+                        sessionStorage.ID = json.idEmpresa;
+                        sessionStorage.NOME = json.nomeEmpresa;
+                    } else {
+                        sessionStorage.TIPO_USUARIO = "usuario";
+                        sessionStorage.ID = json.idEmpresa;
+                        sessionStorage.NOME = json.nomeUsuario;
+                    }
+
+                    setTimeout(function () {
+                        window.location = "./dashboard/";
+                    }, 1000); // apenas para exibir o loading
+
+                });
+
+            } else {
+                console.log("Houve um erro ao tentar realizar o login!");
+
+                resposta.text().then(texto => {
+                    alert(texto);
+                    console.error(texto);
+                });
+            }
+
+        }).catch(function (erro) {
+            console.log(erro);
+        })
+
+        return false;
+    }
+
+    function limparFormulario() {
+        document.getElementById("form_login").reset();
+    }
+</script>

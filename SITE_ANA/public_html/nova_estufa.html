@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+    </head>
+    <body>
+        <form id="estufa" method="post" onsubmit="return cadastrar()">
+            Nome da estufa:         <input type="text" name="nome"><br>
+            cep da estufa:          <input type="text" name="cep"><br>
+            cidade da estufa:       <input type="text" name="cidade"><br>
+            uf da estufa:           <input type="text" name="uf"><br>
+            produto da estufa:      <input type="text" name="produto"><br>
+            <button>Cadastrar Estufa</button>
+        </form>
+        <script>
+            function cadastrar() {
+                var elements = new URLSearchParams(new FormData(document.getElementById("estufa")));
+                elements.set('empresa', sessionStorage.ID);
+                
+                var estufa = elements.get("nome");
+                var cep = elements.get("cep");
+                var cidade = elements.get("cidade");
+                var uf = elements.get("uf");
+                var produto = elements.get("produto");
+                
+                if(!estufa) alert("Digite o nome da estufa");
+                else if(!cep) alert("Digite o cep");
+                else if(!cidade) alert("Digite a cidade");
+                else if(!uf) alert("Digite o uf");
+                else if(!produto) alert("Digite o codigo do produto");
+                else {
+                    fetch("/estufa/cadastrar", {
+                        method: "POST",
+                        body: elements
+                    }).then(function (resposta) {
+                        
+                        console.log("resposta: ", resposta);
+                        if (resposta.ok) {
+                            window.alert("Estufa cadastrada com sucesso!");
+                            
+                            limparFormulario();
+                        } else {
+                            throw("Houve um erro ao tentar realizar o cadastro da estufa!");
+                        }
+                    }).catch(function (resposta) {
+                        console.log(`#ERRO: ${resposta}`);
+                    });
+                    return true;
+                }
+                return false;
+            }
+
+            function limparFormulario() {
+                document.getElementById("estufa").reset();
+            }
+        </script>
+    </body>
+</html>

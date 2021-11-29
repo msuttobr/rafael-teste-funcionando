@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastrar Usuário</title>
+
+    <script src="./dashboard/js/funcoes.js"></script>
+    <link rel="stylesheet" href="./css/cadastro_login.css">
+</head>
+
+<body onload="validarSessao('../login')">
+    <div class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <a href="./index">
+                        <img src="img/logo.png" width="100%">
+                    </a>
+                </div>
+                <div class="navigation">
+                    <ul>
+                        <li><a href="./index#quem-somos">Quem somos</a></li>
+                        <li><a href="./index#proposito">Propósito</a></li>
+                        <li><a href="./simulador-financeiro">Simulador Financeiro</a></li>
+                        <li><a href="./login">Login</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="conteudo">
+        <div class="cadastro_usuario">
+            <form id="form_cadastro" method="post" onsubmit="return cadastrar()">
+                <h1>CADASTRAR USUÁRIO</h1>
+                <div>
+                    Digite um nome de usuário <br>
+                    <input id="ipt_nome_usuario" name="nome" type="text" placeholder="usuário">
+                </div>
+                <div>
+                    Digite um email <br>
+                    <input id="ipt_email_usuario" name="email" type="text" placeholder="e-mail">
+                </div>
+                <div>
+                    Crie uma senha <br>
+                    <input id="ipt_senha_usuario" name="senha" type="password" placeholder="senha">
+                </div>
+
+                <button class="button">CADASTRAR</button>
+            </form>
+        </div>
+    </div>
+</body>
+
+</html>
+<script>
+    function cadastrar() {
+        var formulario = new URLSearchParams(new FormData(document.getElementById("form_cadastro")));
+        formulario.set("empresa", sessionStorage.ID);
+
+        var nome = formulario.get("nome");
+        var email = formulario.get("email");
+        var senha = formulario.get("senha");
+
+        if (nome == "" || email == "" || senha == "") {
+            
+            window.alert("Preencha todos os campos para prosseguir!");
+            if (nome == "")  {
+                console.log('nome está em branco')
+            }
+            if (email == "" )  {
+                console.log('email está em branco')
+            }
+            if (senha == "" )  {
+                console.log('senha está em branco')
+            }
+            return false;
+        }
+
+        // variáveis booleanas para validar os campos de entrada
+        var ax_nome_usuario_OK = ipt_nome_usuario.value.length >= 4;
+        var ax_email_usuario_OK = ipt_email_usuario.value.length >= 6 && ipt_email_usuario.value.includes("@");
+        var ex_senha_usuario_OK = ipt_senha_usuario.value.length >= 6;
+
+        // condições para que os campos sejam válidos
+        if (ax_nome_usuario_OK == false) {
+            alert("O nome do usuário precisa conter ao menos 4 caracteres!")
+            return false;
+        }
+
+        else if (ax_email_usuario_OK == false) {
+            alert("E-mail inválido!")
+            return false;
+        }
+
+        else if (ex_senha_usuario_OK == false) {
+            alert("A senha precisa ter no mínimo 6 caracteres!");
+            return false;
+        }
+
+        fetch("/usuarios/cadastrar", {
+            method: "POST",
+            body: formulario
+        }).then(function (resposta) {
+
+            console.log("resposta: ", resposta);
+
+            if (resposta.ok) {
+                window.alert("Cadastro realizado com sucesso!");
+                window.location = "login";
+                limparFormulario();
+            } else {
+                throw("Houve um erro ao tentar realizar o cadastro!");
+            }
+        }).catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+        });
+        return false;
+    }
+    
+    function limparFormulario() {
+        document.getElementById("form_cadastro").reset();
+    }
+</script>

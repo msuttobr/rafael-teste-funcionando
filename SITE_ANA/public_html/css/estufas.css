@@ -1,0 +1,338 @@
+/*--------------------DASHBOARD--------------------*/
+
+/* definição da página */
+.layout {
+    display: flex;
+    padding: 20px 30px;
+}
+
+/* definição do painel lateral */
+.layout .painel_lateral {
+    color: rgb(127, 127, 127);
+    background-color: rgb(242, 242, 242);
+    height: 100vh;
+    width: 20%;
+    margin-right: 20px;
+    border: rgb(217, 217, 217) 2px solid;
+}
+
+.layout .painel_lateral .painel_logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 200px;
+    width: 100%;
+} 
+
+.layout .painel_lateral div img {
+    height: 200px;
+    width: 200px;
+}
+
+.layout ul {
+    padding: 0 0;
+}
+.layout .painel_lateral .painel_ul li {
+    text-align: center;
+    border: rgb(217, 217, 217) 2px solid;
+    list-style-type: none;
+    padding: 5px 0;
+    font-weight: bolder;
+    font-size: 25px;
+    cursor: pointer;
+}
+
+.layout .painel_lateral .painel_ul li a {
+    text-decoration: none;
+    color: rgb(158, 158, 158);
+}
+
+.layout .painel_lateral .painel_ul .li_cadastros {
+    display: none;
+    background-color: rgb(217, 217, 217);
+}
+.layout .painel_lateral .painel_ul .li_dashboard {
+    display: none;
+    background-color: rgb(217, 217, 217);
+}
+
+/* definição do painel principal */
+.layout .painel_principal {
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+/* definição dos alertas no painel */
+
+.alertas {
+    display: flex;
+    justify-content: space-between;
+}
+
+/* definição do header */
+.layout .header_dashboard {
+    height: 80px;
+    width: 100%;
+    background-color: rgb(169, 209, 142);
+    display: flex;
+}
+
+.layout .header_dashboard .dash1 {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: 50%;
+    height: 100%;
+}
+
+.layout .header_dashboard .dash2 {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    width: 50%;
+    height: 100%;
+}
+
+.layout .header_dashboard img {
+    height: 50px;
+    height: 50px;
+}
+
+.layout .header_dashboard .dash1 img {
+    margin: 0 20px;
+}
+
+.layout .header_dashboard .dash2 img {
+    margin: 0 20px;
+}
+
+.layout .header_dashboard input {
+    padding: 10px 10px;
+    width: 300px;
+    border-radius: 10px;
+    border: none;
+}
+
+/* definição dos alertas e botões */
+
+.alerta_positivo {
+    background-image: url(../img_dashboard/positivo.png);
+    height: 193px;
+    width: 510px;
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-items: center;
+    align-items: center;
+    color: white;
+}
+
+.alerta_negativo {
+    background-image: url(../img_dashboard/negativo.png);
+    height: 193px;
+    width: 510px;
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-items: center;
+    align-items: center;
+    color: white;
+}
+
+.alerta_positivo h1 {
+    margin-top: 20px;
+}
+.alerta_negativo h1 {
+    margin-top: 20px;
+}
+
+.alerta_positivo p {
+    width: 80%;
+    font-size: 20px;
+    margin-bottom: 20px;
+}
+.alerta_negativo p {
+    width: 80%;
+    font-size: 20px;
+    margin-bottom: 20px;
+}
+
+.historico {
+    background-color: rgb(255, 242, 204);
+    height: 100px;
+    width: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: 30px;
+    font-weight: bolder;
+    margin: auto;
+}
+
+.contagem_alertas {
+    background-color: rgb(235, 145, 181);
+    height: 100px;
+    width: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: 30px;
+    font-weight: bolder;
+    margin: auto;
+}
+
+/* definição dos espaços para gráficos */
+
+.graficos {
+    display: flex;
+    justify-content: space-around;
+}
+
+.grafico1 {
+    margin: 20px 20px;
+    height: 500px;
+    width: 500px;
+    border: 2px solid rgb(112, 173, 71);
+    border-radius: 50px;
+    padding: 10px;
+}
+
+.grafico2 {
+    margin: 20px 20px;
+    height: 500px;
+    width: 500px;
+    border: 2px solid rgb(112, 173, 71);
+    border-radius: 50px;
+    padding: 10px;
+}
+
+.graficos .parametro {
+    height: 100%;
+    width: 100%;
+}
+
+/* .alert {
+    color: rgb(189, 215, 238);
+    color: rgb(255, 242, 204);
+    color: rgb(235, 145, 181);
+    color: rgb(112, 173, 71);
+} */
+
+/* JP */
+.dash-header {
+    background-color: #212124;
+}
+
+/* .dash {
+    width: 100%;
+    position: relative;
+    top: 0;
+    left: 25%;
+    background-color: #161618;
+    height: 100vh; 
+} */
+
+.estufas {
+    width: 80%;
+    border: 1px solid rgb(158, 158, 158);
+    border-radius: 20px;
+    padding: 0 40px 40px 40px;
+    margin-top: 50px;
+    color: rgb(158, 158, 158);
+    text-align: center;
+} 
+
+.regua {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.item-regua {
+    padding: 5px;
+    width: 30%;
+    /* margin: 5px; */
+    text-align: center;
+    /* padding-top: 15px; */
+    color: rgb(129, 129, 129);
+}
+
+
+.cards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    width: 100%;
+    align-items: center;
+    align-content: flex-end;
+    color: white;
+}
+
+.card {
+    margin-top: 40px;
+    width: 47%;
+    flex-wrap: wrap;
+    display: flex;
+    text-align: center;
+    background-color: rgb(169, 209, 142);
+    font-size: 20px;
+}
+
+.card p {
+    margin: 0;
+    font-size: 50px;
+    font-weight: lighter;
+    text-align: left;
+}
+
+.cards h1 {
+    font-size: 22px;
+    width: 100%;
+    border-bottom: solid white 1px;
+    text-align: left;
+    font-weight: lighter;
+    margin: 20px;
+}
+
+.temperatura, .umidade {
+    margin: 5px;
+    margin-left: 20px;
+    width: 75%;
+}
+
+.cor-alerta {
+    width: 13%;
+    height: 30%;
+    border-radius: 50px;
+    margin-top: 6%;
+    /* background-color: #c7c7c7; */
+    display: none;
+}
+
+
+.perigo-frio {
+    background-color: #5C6BC0;
+}
+
+.perigo-quente {
+    background-color: rgb(235, 145, 181);
+}
+
+.alerta-frio {
+    background-color: #42A5F5;
+}
+
+.alerta-quente {
+    background-color: rgb(255, 242, 204);
+    color:rgb(129, 129, 129)
+}
+
+.ideal {
+    background-color: rgb(169, 209, 142);
+}
